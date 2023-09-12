@@ -27,7 +27,7 @@ class Pizza(models.Model) :
 
     # une mthode de type 'toString'
     def __str__(self) -> str :
-        return 'pizza' + self.nomPizza + ' (prix : ' + str(self.prix) + ' €)'
+        return 'pizza ' + self.nomPizza + ' (prix : ' + str(self.prix) + ' €)'
 
 class Composition(models.Model) :
 
