@@ -1,0 +1,29 @@
+{% extends 'applipizza/base.html' %}
+
+{% block title %}
+la pizza di la mama
+{% endblock %}
+
+{% block main %}
+<h2>voici NOTRE pizza</h2>
+<p>{{pizza}}</p>
+<h2>voici les {{laCompo|length}} ingrédients de la pizza {{pizza.nomPizza}}</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ingrédient</th>
+            <th scope="col">Quantité</th>
+        </tr>
+    </thead>
+    {% for comp in compo %}
+        <tbody>
+            <tr>
+                <td>INSERT NUMBER HERE</td>
+                <td>{{comp.ingredient}}</td>
+                <td>{{comp.quantite}}</td>
+            </tr>
+        </tbody>
+    {% endfor %}
+</table>
+{% endblock %}

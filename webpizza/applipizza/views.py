@@ -25,3 +25,17 @@ def ingredients(request) :
         'applipizza/ingredients.html',
         {'ingredients' : lesIngredients}
     )
+
+def pizza(request, pizza_id) :
+    # récupération de la pizza dont l'id a été passé en paramètre (int:pizza_id)
+    laPizza = Pizza.objects.get(idPizza = pizza_id)
+    # récupération de la composition de la pizza dont l'id a été passé en paramètre (int:pizza_id)
+    laCompo = Composition.objects.filter(pizza = pizza_id)
+
+    # on retourne l'emplacement du template et de la pizza récup dans la base de données
+    return render(
+        request,
+        'applipizza/pizza.html',
+        {'pizza' : laPizza,
+         'compo' : laCompo}
+    )
