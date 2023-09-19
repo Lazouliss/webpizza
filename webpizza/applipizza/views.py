@@ -14,3 +14,14 @@ def pizzas(request) :
         'applipizza/pizzas.html',
         {'pizzas' : lesPizzas}
     )
+
+def ingredients(request) :
+    # récupération des ingredients de la base de données avec les mêmes instructions que dans le shell
+    lesIngredients = Ingredient.objects.all()
+
+    # on retourne l'emplacement du template et, même s'il ne pas cette fois, le paramètre request, ainsi que le contenu calculé (lesIngredients) sout forme d'un dictionnaire python
+    return render(
+        request,
+        'applipizza/ingredients.html',
+        {'ingredients' : lesIngredients}
+    )
