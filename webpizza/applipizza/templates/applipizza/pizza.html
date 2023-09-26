@@ -7,7 +7,8 @@ la pizza di la mama
 {% block main %}
 <h2>voici NOTRE pizza</h2>
 <p>{{pizza}}</p>
-<h2>voici les {{laCompo|length}} ingrédients de la pizza {{pizza.nomPizza}}</h2>
+{% if compo %}
+<h2>voici les {{compo|length}} ingrédients de la pizza {{pizza.nomPizza}}</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -16,14 +17,35 @@ la pizza di la mama
             <th scope="col">Quantité</th>
         </tr>
     </thead>
+    <tbody>
     {% for comp in compo %}
-        <tbody>
-            <tr>
-                <td>INSERT NUMBER HERE</td>
-                <td>{{comp.ingredient}}</td>
-                <td>{{comp.quantite}}</td>
-            </tr>
-        </tbody>
+        <tr>
+            <th scope="row">{{comp.idComposition}}</td>
+            <td>{{comp.ingredient}}</td>
+            <td>{{comp.quantite}}</td>
+        </tr>
     {% endfor %}
+    </tbody>
 </table>
+{% else %}
+<p>Malheureusement, la pizza {{pizza.nomPizza}} n'a pas encore d'ingrédients</p>
+{% endif %}
+<h2>Ajouter un ingrédient</h2>
+<form action="/pizzas/{{pizza.idPizza}}/addIngredient/" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_ingredient" class="form-label">Ingrédient</label>
+        <select name="ingredient" class="form-select" required id="id_ingredient">
+            <option selected disabled>choisissez</option>
+            {% for ing in lesIng %}
+            <option value="{{ing.idIngredient}}">{{ing.nomIngredient}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="id_quantite" class="form-label">Quantité</label>
+        <input type="text" name="quantite" class="form-control" max-length="100" required id="id_quantite">
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
 {% endblock %}
