@@ -9,11 +9,11 @@
         <link rel="icon" href="{% static 'applipizza/img/icon2.png' %}">
         <title>{% block title %}{% endblock %}</title>
     </head> 
-    <body>
+    <body class="Site">
         <header>
             {% include 'applipizza/menu.html' %}
         </header>
-        <main>
+        <main class="Site-content">
             {% block main %}{% endblock %}
         </main>
         <footer>

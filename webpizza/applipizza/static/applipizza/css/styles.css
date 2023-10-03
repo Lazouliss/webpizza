@@ -1,12 +1,11 @@
-main {
+.Site {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
-footer {
-    display: flex;
-    bottom: 0;
+.Site-content {
+    flex: 1;
 }
 
 nav {

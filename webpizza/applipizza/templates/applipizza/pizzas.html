@@ -8,7 +8,11 @@ les pizzas di la mama
 <h2>voici nos {{pizzas|length}} pizzas</h2>
 <ul>
     {% for piz in pizzas %}
-    <li>{{piz}} | <a href="/pizzas/{{piz.idPizza}}"> détails</a></li> 
+    <li>{{piz}} | 
+        <a href="/pizzas/{{piz.idPizza}}/"> détails </a> | 
+        <a href="/pizzas/{{piz.idPizza}}/update/"> modifier </a> | 
+        <a href="/pizzas/{{piz.idPizza}}/delete/"> supprimer </a>
+    </li> 
     {% endfor %}
 </ul>
 {% endblock %}
