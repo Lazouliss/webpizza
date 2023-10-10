@@ -8,7 +8,10 @@ les ingrédients di la mama
 <h2>voici nos {{ingredients|length}} ingrédients</h2>
 <ul>
     {% for ing in ingredients %}
-    <li>{{ing}}</li> 
+    <li>{{ing}} | 
+        <a href="/ingredients/{{ing.idIngredient}}/update/"> modifier </a> | 
+        <a href="/ingredients/{{ing.idIngredient}}/delete/"> supprimer </a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -199,3 +199,63 @@ def modifierPizza(request, pizza_id) :
         'applipizza/traitementFormulaireModificationPizza.html',
         {'nom' : piz.nomPizza}
     )
+
+def supprimerIngredient(request, ingredient_id) :
+    # récupération de l'ingredient dont l'id a été passé en paramètre (int:ingredient_id)
+    laIngredient = Ingredient.objects.get(idIngredient = ingredient_id)
+    # suppression de la ingredient
+    laIngredient.delete()
+
+    # récupération des ingredients de la base de données avec les mêmes instructions que dans le shell
+    lesIngredients = Ingredient.objects.all()
+
+    # on retourne l'emplacement du template et, même s'il ne pas cette fois, le paramètre request, ainsi que le contenu calculé (lesIngredients) sous forme d'un dictionnaire python
+    return render(
+        request,
+        'applipizza/ingredients.html',
+        {'ingredients' : lesIngredients}
+    )
+
+def afficherFormulaireModificationIngredient(request, ingredient_id) :
+    # récupération de l'ingredient dont l'id a été passé en paramètre (int:ingredient_id)
+    ingredient_a_modifier = Ingredient.objects.get(idIngredient = ingredient_id)
+    # print("idIngredient = " + str(ingredient_a_modifier.idIngredient))
+    return render(
+        request,
+        'applipizza/formulaireModificationIngredient.html',
+        {'ingredient' : ingredient_a_modifier}
+    )
+
+def modifierIngredient(request, ingredient_id) :
+    # récupération de l'ingredient dont l'id a été passé en paramètre (int:ingredient_id)
+    unIngredient = Ingredient.objects.get(idIngredient = ingredient_id)
+    
+    # récupération du formulaire posté
+    form = IngredientForm(request.POST, instance = unIngredient)
+
+    if form.is_valid() :
+        form.save()
+
+    ing = Ingredient.objects.get(idIngredient = ingredient_id)
+
+    return render(
+        request,
+        'applipizza/traitementFormulaireModificationIngredient.html',
+        {'nom' : ing.nomIngredient}
+    )
+
+def supprimerIngredientDansPizza(request, pizza_id, composition_id) :
+    # récupération de la composition dont l'id a été passé en paramètre (int:ingredient_id)
+    laComposition = Composition.objects.get(idComposition = composition_id)
+    # suppression de la composition
+    laComposition.delete()
+    
+    # récupération des pizzas
+    lesPizzas = Pizza.objects.all()
+
+    # on retourne l'emplacement du template et, même s'il ne pas cette fois, le paramètre request, ainsi que le contenu calculé (lesCompositions) sous forme d'un dictionnaire python
+    return render(
+        request,
+        'applipizza/pizzas.html',
+        {'pizzas' : lesPizzas}
+    )

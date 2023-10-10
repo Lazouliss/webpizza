@@ -15,6 +15,7 @@ la pizza di la mama
             <th scope="col">#</th>
             <th scope="col">Ingrédient</th>
             <th scope="col">Quantité</th>
+            <th scope="col">Supprimer</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@ la pizza di la mama
             <th scope="row">{{comp.idComposition}}</td>
             <td>{{comp.ingredient}}</td>
             <td>{{comp.quantite}}</td>
+            <td><a href="/pizzas/{{pizza.idPizza}}/deleteIngredient/{{comp.idComposition}}"><span class="bi bi-trash"></span></a></td>
         </tr>
     {% endfor %}
     </tbody>

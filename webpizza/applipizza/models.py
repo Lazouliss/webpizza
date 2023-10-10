@@ -25,6 +25,9 @@ class Pizza(models.Model) :
     # le prix est décimal, maximum = 4 chiffres, dont 2 décimales
     prix = models.DecimalField(max_digits = 4, decimal_places = 2, verbose_name = 'le prix')
 
+    # fichier image de la pizza
+    image = models.ImageField(default = 'imagesPizzas/default.PNG', upload_to = 'imagesPizzas/')
+
     # une mthode de type 'toString'
     def __str__(self) -> str :
         return 'pizza ' + self.nomPizza + ' (prix : ' + str(self.prix) + ' €)'

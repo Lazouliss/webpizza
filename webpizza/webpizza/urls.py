@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from applipizza import views
 
 urlpatterns = [
@@ -31,4 +33,10 @@ urlpatterns = [
     path('pizzas/<int:pizza_id>/delete/', views.supprimerPizza),
     path('pizzas/<int:pizza_id>/update/', views.afficherFormulaireModificationPizza),
     path('pizzas/<int:pizza_id>/updated/', views.modifierPizza),
+    path('ingredients/<int:ingredient_id>/delete/', views.supprimerIngredient),
+    path('ingredients/<int:ingredient_id>/update/', views.afficherFormulaireModificationIngredient),
+    path('ingredients/<int:ingredient_id>/updated/', views.modifierIngredient),
+    path('pizzas/<int:pizza_id>/deleteIngredient/<int:composition_id>/', views.supprimerIngredientDansPizza),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
