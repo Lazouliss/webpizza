@@ -89,17 +89,14 @@ def creerPizza(request) :
     form = PizzaForm(request.POST)
 
     if form.is_valid() :
-        # récupération de la valeur du champ 'nomPizza' 
-        # form.cleaned_data permet de nettoyer la donnée au cas où des injections en tout genre seraient présentes
-        nomPiz = form.cleaned_data['nomPizza']
-        prixPiz = form.cleaned_data['prix']
-
         # création d'une nouvelle pizza
         piz = Pizza()
 
-        # affectation de la pizza dans la base
-        piz.nomPizza = nomPiz
-        piz.prix = prixPiz
+        # récupération de la valeur du champ 'nomPizza' 
+        # form.cleaned_data permet de nettoyer la donnée au cas où des injections en tout genre seraient présentes
+        piz.nomPizza = form.cleaned_data['nomPizza']
+        piz.prix = form.cleaned_data['prix']
+        piz.image = request.FILES['image']
 
         # engregistrement de la pizza dans la base
         piz.save()
@@ -108,7 +105,7 @@ def creerPizza(request) :
     return render(
         request,
         'applipizza/traitementFormulaireCreationPizza.html',
-        {"nom" : nomPiz}
+        {"nom" : piz.nomPizza}
     )
 
 def ajouterIngredientDansPizza(request, pizza_id) :
@@ -186,18 +183,24 @@ def modifierPizza(request, pizza_id) :
     laPizza = Pizza.objects.get(idPizza = pizza_id)
     
     # récupération du formulaire posté
-    form = PizzaForm(request.POST, instance = laPizza)
+    form = PizzaForm(request.POST, request.FILES, instance = laPizza)
+
+    print("toto")
 
     if form.is_valid() :
+        if 'image' in request.FILES:
+            laPizza.image = request.FILES['image']
         form.save()
-        # laPizza.save() ?
+        laPizza.save()
+    
+    laPizza = Pizza.objects.get(idPizza = pizza_id)
 
-    piz = Pizza.objects.get(idPizza = pizza_id)
+    print("tata")
 
     return render(
         request,
         'applipizza/traitementFormulaireModificationPizza.html',
-        {'nom' : piz.nomPizza}
+        {'nom' : laPizza.nomPizza}
     )
 
 def supprimerIngredient(request, ingredient_id) :

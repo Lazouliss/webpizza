@@ -6,12 +6,20 @@ les ingrédients di la mama
 
 {% block main %}
 <h2>voici nos {{ingredients|length}} ingrédients</h2>
-<ul>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Ingrédient</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for ing in ingredients %}
-    <li>{{ing}} | 
-        <a href="/ingredients/{{ing.idIngredient}}/update/"> modifier </a> | 
-        <a href="/ingredients/{{ing.idIngredient}}/delete/"> supprimer </a>
-    </li>
+        <tr>
+            <td scope="row">{{ing}}</td>
+            <td><a href="/ingredients/{{ing.idIngredient}}/update/"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ingredients/{{ing.idIngredient}}/delete/"><i class="bi bi-trash"></i></a></td>
+        </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 {% endblock %}
