@@ -16,9 +16,18 @@ les pizzas di la mama
         </div>
         <div>{{piz}}</div>
         <div>
-            <a href="/pizzas/{{piz.idPizza}}/"><i class="bi bi-info-circle"></i></a> | 
+            <a href="/pizzas/{{piz.idPizza}}/"><i class="bi bi-info-circle"></i></a>
+
+            {% if user.is_authenticated and not user.is_staff %}
+             | 
+            <a href="/pizzas/{{piz.idPizza}}/buy/"><i class="bi bi-basket"></i></a>
+            {% endif %}
+
+            {% if user.is_staff %}
+             | 
             <a href="/pizzas/{{piz.idPizza}}/update/"><i class="bi bi-pencil-square"></i></a> | 
             <a href="/pizzas/{{piz.idPizza}}/delete/"><i class="bi bi-trash3"></i></a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

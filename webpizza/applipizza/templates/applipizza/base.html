@@ -12,7 +12,13 @@
     </head>
     <body class="Site">
         <header>
-            {% include 'applipizza/menu.html' %}
+            {% if user.is_staff %}
+            {% include 'applicompte/menuStaff.html' %}
+            {% elif user.is_authenticated %}
+            {% include 'applicompte/menuClient.html' %}
+            {% else %}
+            {% include 'applicompte/menuNonConnecte.html' %}
+            {% endif %}
         </header>
         <main class="Site-content">
             {% block main %}{% endblock %}

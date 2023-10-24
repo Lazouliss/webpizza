@@ -12,19 +12,23 @@ la pizza di la mama
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Ingrédient</th>
             <th scope="col">Quantité</th>
+
+            {% if user.is_staff %}
             <th scope="col">Supprimer</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
     {% for comp in compo %}
         <tr>
-            <th scope="row">{{comp.idComposition}}</td>
             <td>{{comp.ingredient}}</td>
             <td>{{comp.quantite}}</td>
+
+            {% if user.is_staff %}
             <td><a href="/pizzas/{{pizza.idPizza}}/deleteIngredient/{{comp.idComposition}}"><span class="bi bi-trash"></span></a></td>
+            {% endif %}
         </tr>
     {% endfor %}
     </tbody>
@@ -32,6 +36,8 @@ la pizza di la mama
 {% else %}
 <p>Malheureusement, la pizza {{pizza.nomPizza}} n'a pas encore d'ingrédients</p>
 {% endif %}
+
+{% if user.is_staff %}
 <h2>Ajouter un ingrédient</h2>
 <form action="/pizzas/{{pizza.idPizza}}/addIngredient/" method="post">
     {% csrf_token %}
@@ -50,4 +56,5 @@ la pizza di la mama
     </div>
     <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
+{% endif %}
 {% endblock %}
