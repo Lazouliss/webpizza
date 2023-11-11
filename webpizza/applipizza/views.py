@@ -4,11 +4,12 @@ from django.shortcuts import render
 from applipizza.models import Pizza, Ingredient, Composition
 from applipizza.forms import IngredientForm, PizzaForm, CompositionForm
 from django.contrib.auth.models import User
+from applicompte.models import PizzaUser
 
 # Create your views here.
 def pizzas(request) :
     user = None
-    if request.user.is_staff :
+    if request.user.is_authenticated :
         user = PizzaUser.objects.get(id = request.user.id)
 
     # récupération des pizzas de la base de données avec les mêmes instructions que dans le shell
@@ -54,7 +55,7 @@ def ingredients(request) :
 
 def pizza(request, pizza_id) :
     user = None
-    if request.user.is_staff :
+    if request.user.is_authenticated :
         user = PizzaUser.objects.get(id = request.user.id)
 
     # récupération de la pizza dont l'id a été passé en paramètre (int:pizza_id)
