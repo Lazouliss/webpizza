@@ -1,0 +1,45 @@
+- Git commands :
+
+* add all new / modified files to the commit
+git add .
+
+* commit all added files
+git commit -m ""
+
+* push the commit to the current branch
+git push
+
+* pull the content of the current branch
+git pull
+
+- Other commands :
+
+USE THEM AT START OF THE COMPUTER !
+
+HTTP_PROXY=http://proxy.iut-orsay.fr:3128
+HTTPS_PROXY=http://proxy.iut-orsay.fr:3128
+export HTTP_PROXY
+export HTTPS_PROXY
+
+IN webpizza/ :
+
+* activate django
+source env/bin/activate
+
+IN webpizza/webpizza :
+
+* créer migration (maj models ds base de données) 
+python3 manage.py makemigrations
+
+* valider migration
+python3 manage.py migrate
+
+* lancer le serveur
+python3 manage.py runserver
+
+* créer une nouvelle app
+python3 manage.py startapp <nom_app>
+PUIS l'ajouter dans INSTALLED_APPS de settings.py
+ex : INSTALLED_APPS = ['<nom_app>']
+ET dans urls.py : path('', include('<nom_app>.urls')),
+

@@ -6,8 +6,12 @@ les pizzas di la mama
 
 {% block main %}
 <h2>voici nos {{pizzas|length}} pizzas</h2>
-<div class="pizzas">
+<div class="d-flex justify-content-around">
     {% for piz in pizzas %}
+    {% if forloop.counter0|divisibleby:3 %}
+    </div>
+    <div class="d-flex justify-content-around">
+    {% endif %}
     <div class="divPizza">
         <div>
             <a href="/pizzas/{{piz.idPizza}}">
@@ -19,12 +23,12 @@ les pizzas di la mama
             <a href="/pizzas/{{piz.idPizza}}/"><i class="bi bi-info-circle"></i></a>
 
             {% if user.is_authenticated and not user.is_staff %}
-             | 
+            | 
             <a href="/pizzas/{{piz.idPizza}}/buy/"><i class="bi bi-basket"></i></a>
             {% endif %}
 
             {% if user.is_staff %}
-             | 
+            | 
             <a href="/pizzas/{{piz.idPizza}}/update/"><i class="bi bi-pencil-square"></i></a> | 
             <a href="/pizzas/{{piz.idPizza}}/delete/"><i class="bi bi-trash3"></i></a>
             {% endif %}
@@ -32,4 +36,5 @@ les pizzas di la mama
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}

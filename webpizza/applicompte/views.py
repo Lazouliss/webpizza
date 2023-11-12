@@ -11,6 +11,7 @@ def connexion (request) :
     user = authenticate (request, username = usr, password = pwd)
     if user is not None:
         login(request, user)
+        user = PizzaUser.objects.get(id = user.id)
         lesPizzas = Pizza.objects.all() 
         return render(
             request,

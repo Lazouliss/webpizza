@@ -7,11 +7,25 @@ la pizza di la mama
 {% block main %}
 <h2>voici NOTRE pizza</h2>
 <p>{{pizza}}</p>
+
+<div class="d-flex justify-content-center">
+    <img class="imgPizza" src="{{MEDIA_URL}}{{pizza.image}}" alt="image de pizza" title="{{pizza.nomPizza}}">
+</div>
+
+{% if user.is_authenticated and not user.is_staff %}
+</br>
+<div class="d-flex justify-content-center">
+    <a href="/pizzas/{{pizza.idPizza}}/buy/"><button class="btnAjtPanier">Ajouter au panier</button></a>
+</div>
+{% endif %}
+
+</br>
 {% if compo %}
 <h2>voici les {{compo|length}} ingrédients de la pizza {{pizza.nomPizza}}</h2>
 <table class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">Ingrédient</th>
             <th scope="col">Quantité</th>
 
@@ -23,6 +37,7 @@ la pizza di la mama
     <tbody>
     {% for comp in compo %}
         <tr>
+            <th>{{forloop.counter}}</th>
             <td>{{comp.ingredient}}</td>
             <td>{{comp.quantite}}</td>
 

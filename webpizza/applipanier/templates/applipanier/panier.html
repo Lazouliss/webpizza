@@ -1,0 +1,57 @@
+{% extends 'applipizza/base.html' %}
+{% load static %}
+{% block title %}
+Votre panier
+{% endblock %}
+
+{% block main %}
+<h2>Voici votre panier</h2>
+{% if panier %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Pizza</th>
+            <th scope="col"></th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix unitaire</th>
+            <th scope="col">Prix total</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ligne in lignesPanier %}
+        <tr>
+            <td>{{ligne.pizza.nomPizza}}</td>
+            <td><a href="/pizzas/{{ligne.pizza.idPizza}}/"><span class="bi bi-info-circle"></span></a></td>
+            <td>{{ligne.quantite}}</td>
+            <td>{{ligne.pizza.prix}}</td>
+            <td>{{ligne.prix}}</td>
+            <td><a href="/pizzas/{{ligne.pizza.idPizza}}/buy/"><span class="bi bi-cart-plus"></span></a></td>
+            <td><a href="/cart/{{ligne.pizza.idPizza}}/decrease/"><span class="bi bi-cart-dash"></span></a></td>
+            <td><a href="/cart/{{ligne.pizza.idPizza}}/delete/"><span class="bi bi-cart-x"></span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row">total facture</th>
+            <th scope="row">{{panier.prix}}</th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"><a href="/cart/delete/"><span class="bi bi-cart-x"></span></a></th>
+        </tr>
+    </tfoot>
+</table>
+<div class="d-flex justify-content-center">
+    <a href="/cart/pay/"><img src="{% static 'applipanier/img/cb.png' %}" alt="bank card"></a>
+</div>
+{% else %}
+<p>Malheureusement, vous n'avez pas encore de pizzas dans votre panier.</p>
+<p>Allez dès maintenant découvrir <a href="/pizzas/">notre catalogue</a> !</p>
+{% endif %}
+{% endblock %}

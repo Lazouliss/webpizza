@@ -18,20 +18,12 @@ nav {
     height: auto;
 }
 
-.pizzas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
-    grid-gap: 30px;
-}
-
 .divPizza {
-    display: grid;
-    grid-template-rows: max-content 30px 1fr;
-    text-align:center;
-
     background-color: antiquewhite;
     border: thick double whitesmoke;
     border-radius: 30px;
+
+    text-align: center;
     
     box-shadow: 5px 5px 5px antiquewhite;
 }
@@ -45,4 +37,25 @@ nav {
     border-style: inset;
     border-color:antiquewhite;
     border-radius: 20px;
+}
+
+.imgPizza {
+    object-fit: cover;
+    padding: 0;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px rgb(177, 177, 177);
+}
+
+thead, tfoot {
+    background-color: rgb(212, 245, 199);
+}
+
+.btnAjtPanier {
+    background-color: rgb(83, 177, 83);
+    color: white;
+    
+    padding : 10px;
+
+    border-style: outset;
+    border-radius: 10px;
 }

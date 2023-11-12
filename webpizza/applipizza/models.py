@@ -36,7 +36,7 @@ class Composition(models.Model) :
 
     # la classe Meta qui gère l'unicité du couple de clés étrangères
     class Meta :
-        unique_together = ('ingredient', 'pizza') # le nom des chaps clés étrangères
+        unique_together = ('ingredient', 'pizza') # le nom des champs clés étrangères
 
     # idComposition est une clé primaire
     idComposition = models.AutoField(primary_key = True)
