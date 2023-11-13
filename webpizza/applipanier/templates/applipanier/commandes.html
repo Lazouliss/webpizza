@@ -1,0 +1,34 @@
+{% extends 'applipizza/base.html' %}
+{% load static %}
+{% block title %}
+Historique des commandes
+{% endblock %}
+
+{% block main %}
+<h2>Votre historique de commandes</h2>
+{% if commandes %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">N° de commande</th>
+            <th scope="col">Date de commande</th>
+            <th scope="col">Prix total</th>
+            <th scope="col">Détails</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for com in commandes %}
+        <tr>
+            <td>{{com.idCommande}}</td>
+            <td>{{com.dateCommande}}</td>
+            <td>{{com.prix}}</td>
+            <td><a href="/orders/{{com.idCommande}}/"><span class="bi bi-info-circle"></span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Malheureusement, vous n'avez pas encore validé de commandes.</p>
+<p>Allez dès maintenant découvrir <a href="/pizzas/">notre catalogue</a> ou validez <a href="/cart/">votre panier</a> !</p>
+{% endif %}
+{% endblock %}

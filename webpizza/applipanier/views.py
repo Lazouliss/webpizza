@@ -196,11 +196,13 @@ def payerPanier(request) :
     user = None
     if request.user.is_authenticated :
         user = PizzaUser.objects.get(id = request.user.id)
-        # récup panier ou crée panier si inexistant
+        # récup panier
         lesCommandesNonPayees = Commande.objects.filter(pizzauser = user).filter(payee = False)
         if lesCommandesNonPayees :
             panier = lesCommandesNonPayees[0]
 
+        # actualisation de la date
+        panier.dateCommande = datetime.today().strftime('%Y-%m-%d')
         panier.payee = True
         panier.save()
 
@@ -208,6 +210,45 @@ def payerPanier(request) :
             request,
             'applipanier/avisPaiement.html',
             {"user" : user, "panier" : panier}
+        )
+    else:
+        return render(
+            request,
+            'applicompte/login.html'
+        )
+    
+def afficherCommandes(request) :
+    user = None
+    if request.user.is_authenticated :
+        user = PizzaUser.objects.get(id = request.user.id)
+        # récup commandes
+        commandes = Commande.objects.filter(pizzauser = user).filter(payee = True)
+
+        return render(
+            request,
+            'applipanier/commandes.html',
+            {"user" : user, "commandes" : commandes}
+        )
+    else:
+        return render(
+            request,
+            'applicompte/login.html'
+        )
+    
+def afficherDetailsCommande(request, order_id) :
+    user = None
+    if request.user.is_authenticated :
+        user = PizzaUser.objects.get(id = request.user.id)
+        # récup commande        
+        laCommande = Commande.objects.filter(pizzauser = user).filter(idCommande = order_id)
+        commande = laCommande[0]
+        # récup détails de la commande
+        lesLignesDeLaCommande = LigneCommande.objects.filter(commande_id = commande.idCommande)
+        
+        return render(
+            request,
+            'applipanier/commande.html',
+            {"user" : user, "commande" : commande, "lignesCommande" : lesLignesDeLaCommande}
         )
     else:
         return render(
